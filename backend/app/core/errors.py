@@ -12,7 +12,20 @@ class InvariusError(Exception):
         *,
         code: str = "INVARIUS_ERROR",
     ) -> None:
+        if not isinstance(message, str):
+            raise TypeError("Error message must be a string.")
+
+        if not message.strip():
+            raise ValueError("Error message cannot be empty.")
+
+        if not isinstance(code, str):
+            raise TypeError("Error code must be a string.")
+
+        if not code.strip():
+            raise ValueError("Error code cannot be empty.")
+
         super().__init__(message)
+
         self.message = message
         self.code = code
 
