@@ -1,0 +1,1 @@
+"""INVARIUS platform foundation."""
