@@ -14,7 +14,7 @@ from .errors import ValidationError
 def serialize(value: Any) -> Any:
     """Convert a supported Python value into a deterministic JSON structure."""
 
-    if is_dataclass(value):
+    if is_dataclass(value) and not isinstance(value, type):
         return serialize(asdict(value))
 
     if isinstance(value, Enum):
@@ -32,11 +32,11 @@ def serialize(value: Any) -> Any:
     if isinstance(value, dict):
         serialized: dict[str, Any] = {}
 
-        for key, item in value.items():
+        for key in sorted(value):
             if not isinstance(key, str):
                 raise ValidationError("Dictionary keys must be strings for serialization.")
 
-            serialized[key] = serialize(item)
+            serialized[key] = serialize(value[key])
 
         return serialized
 

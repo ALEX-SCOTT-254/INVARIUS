@@ -53,6 +53,23 @@ def test_nested_serialization() -> None:
     }
 
 
+def test_dictionary_serialization_is_key_order_deterministic() -> None:
+    first = {
+        "a": 1,
+        "b": 2,
+        "c": 3,
+    }
+
+    second = {
+        "c": 3,
+        "a": 1,
+        "b": 2,
+    }
+
+    assert serialize(first) == serialize(second)
+    assert list(serialize(first)) == ["a", "b", "c"]
+
+
 def test_json_compatible_values() -> None:
     value = {
         "string": "value",
