@@ -18,7 +18,7 @@ class Settings:
 
 
 def load_settings() -> Settings:
-    """Load validated settings from the environment."""
+    """Load and validate settings from the environment."""
 
     environment = os.getenv("INVARIUS_ENVIRONMENT", "development").strip()
     log_level = os.getenv("INVARIUS_LOG_LEVEL", "INFO").strip().upper()
@@ -33,6 +33,3 @@ def load_settings() -> Settings:
         environment=environment,
         log_level=log_level,
     )
-
-
-settings = load_settings()
