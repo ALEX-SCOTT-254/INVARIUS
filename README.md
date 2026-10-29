@@ -115,7 +115,28 @@ INVARIUS therefore begins with the difficult foundation: discovering software, r
 **Phase 1 mission: Build the Software Understanding Foundation of INVARIUS.**
 
 This foundation is intended to support later investigation, verification, security analysis, controlled repair, and more autonomous engineering capabilities.
+### Application Configuration
 
+INVARIUS loads application settings through `load_settings()` before
+the main application reports successful startup.
+
+The current configuration uses these environment variables:
+
+| Variable | Default | Behavior |
+|---|---|---|
+| `INVARIUS_ENVIRONMENT` | `development` | Identifies the application environment. |
+| `INVARIUS_LOG_LEVEL` | `INFO` | Identifies the configured log level; the value is normalized to uppercase. |
+
+Configuration values are stripped of surrounding whitespace. Empty
+environment or log-level values raise `ConfigurationError`, preventing
+the main application from reporting successful startup.
+
+Settings are represented by an immutable `Settings` dataclass.
+Configuration is loaded when startup is initiated rather than validated
+as a side effect of importing the configuration module.
+
+This documents the current implementation; it does not imply that
+additional environment names or log-level values are validated.
 ---
 
 ## 4. The Long-Term Architecture: Four Connected Layers
